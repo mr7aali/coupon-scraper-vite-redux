@@ -1,4 +1,6 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter } from "react-router-dom";
+import PublicOnlyRoute from "../components/PublicOnlyRoute";
+import RequireAuth from "../components/RequireAuth";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import DashboardOverview from "../components/DashboardOverview";
 import UserManagementPage from "../pages/Dashboard/UserManagementPage";
@@ -13,25 +15,37 @@ import Notifications from "../pages/Notifications/Notifications";
 import Payments from "../pages/Payments/Payments";
 import Reports from "../pages/Reports/Reports";
 import Settings from "../pages/Settings/Settings";
+import AdminLoginPage from "../pages/Auth/AdminLoginPage";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Dashboard />,
+    element: <PublicOnlyRoute />,
     children: [
-      { index: true, element: <DashboardOverview /> },
-      { path: "users", element: <UserManagementPage /> },
-      { path: "subscriptions", element: <SubscriptionsPage /> },
-      { path: "partners", element: <PartnerStoresPage /> },
-      { path: "deals", element: <PromoCodesPage /> },
-      { path: "categories", element: <CategoriesManagementPage /> },
-      { path: "referrals", element: <ReferralsProgramPage /> },
-      { path: "content", element: <ContentManagement /> },
-      { path: "notifications", element: <Notifications /> },
-      { path: "payments", element: <Payments /> },
-      { path: "reports", element: <Reports /> },
-      { path: "settings", element: <Settings /> },
-      { path: "admin-roles", element: <AdminRoles /> },
+      { path: "/login", element: <AdminLoginPage /> },
+    ],
+  },
+  {
+    element: <RequireAuth />,
+    children: [
+      {
+        path: "/",
+        element: <Dashboard />,
+        children: [
+          { index: true, element: <DashboardOverview /> },
+          { path: "users", element: <UserManagementPage /> },
+          { path: "subscriptions", element: <SubscriptionsPage /> },
+          { path: "partners", element: <PartnerStoresPage /> },
+          { path: "deals", element: <PromoCodesPage /> },
+          { path: "categories", element: <CategoriesManagementPage /> },
+          { path: "referrals", element: <ReferralsProgramPage /> },
+          { path: "content", element: <ContentManagement /> },
+          { path: "notifications", element: <Notifications /> },
+          { path: "payments", element: <Payments /> },
+          { path: "reports", element: <Reports /> },
+          { path: "settings", element: <Settings /> },
+          { path: "admin-roles", element: <AdminRoles /> },
+        ],
+      },
     ],
   },
 ]);
