@@ -1,6 +1,7 @@
 import { Search, Bell } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { useAppSelector } from '../hooks';
 
 /** Utility for clean class merging */
 function cn(...inputs: ClassValue[]) {
@@ -20,6 +21,8 @@ const Header = ({
   onSearch, 
   hasNotification = true 
 }: HeaderProps) => {
+  const admin = useAppSelector((state) => state.auth.admin);
+
   return (
     <header 
       className={cn(
@@ -33,7 +36,7 @@ const Header = ({
       </h1>
 
       {/* Right Side: Actions */}
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-4">
         {/* Search Bar */}
         <div className="relative group">
           <input
@@ -52,6 +55,13 @@ const Header = ({
             <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full border-2 border-white bg-[#EF4444]" />
           )}
         </button>
+
+        {admin ? (
+          <div className="hidden min-w-[160px] rounded-full border border-[#E5E7EB] bg-[#F8FAFC] px-4 py-2 text-right md:block">
+            <p className="text-sm font-semibold text-[#0F172A]">{admin.fullName}</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-[#0891B2]">{admin.role}</p>
+          </div>
+        ) : null}
       </div>
     </header>
   );

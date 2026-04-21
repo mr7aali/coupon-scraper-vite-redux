@@ -1,10 +1,10 @@
-import { Outlet } from "react-router";
+import { Outlet } from "react-router-dom";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 
 const Dashboard = () => {
   return (
-    <div className="flex min-h-screen bg-[#F9FAFB]">
+    <div className="flex min-h-screen bg-[linear-gradient(180deg,#f8fbfd_0%,#f2f6fb_100%)]">
       {/* Sidebar*/}
       <div className="fixed top-0 left-0 h-screen w-[280px] z-50 bg-[#FFF] border-r border-[#F3F4F6] hidden lg:block">
         <Sidebar />
